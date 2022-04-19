@@ -1,0 +1,58 @@
+syntax = "proto3";
+
+package beget.url.v1.shortener;
+import "google/api/annotations.proto";
+
+service ShortenerService {
+  rpc createShortLink (CreateShortLinkRequest) returns (CreateShortLinkResponse) {
+    option (google.api.http) = {
+      post: "/v1/url/link"
+      body: "*"
+    };
+  }
+
+  rpc getFullLink (GetFullLinkRequest) returns (GetFullLinkResponse) {
+    option (google.api.http) = {
+      get: "/v1/url/link/{short_link}"
+    };
+  }
+}
+message CreateShortLinkRequest {
+  string full_link = 1;
+}
+
+message CreateShortLinkResponse {
+  oneof result {
+    string short_link = 1;
+    Error error = 2;
+  }
+  message Error {
+    string error_text = 1;
+    Code code = 2;
+    enum Code {
+      _ = 0;
+      FORBIDDEN_DOMAIN = 1;
+      INVALID_DOMAIN = 2;
+    }
+  }
+}
+
+message GetFullLinkRequest {
+  string short_link = 1;
+}
+
+message GetFullLinkResponse {
+  oneof result {
+    string full_link = 1;
+    Error error = 2;
+  }
+
+  message Error {
+    string error_text = 1;
+    Code code = 2;
+    enum Code {
+      _ = 0;
+      LINK_EXPIRED = 2;
+    }
+  }
+}
