@@ -38,7 +38,7 @@ message CreateShortLinkResponse {
 }
 
 message GetFullLinkRequest {
-  string short_link = 1;
+  string short_link_code = 1;
 }
 
 message GetFullLinkResponse {
