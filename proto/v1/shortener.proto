@@ -42,17 +42,5 @@ message GetFullLinkRequest {
 }
 
 message GetFullLinkResponse {
-  oneof result {
-    string full_link = 1;
-    Error error = 2;
-  }
-
-  message Error {
-    string error_text = 1;
-    Code code = 2;
-    enum Code {
-      _ = 0;
-      LINK_EXPIRED = 2;
-    }
-  }
+  string full_link = 1;
 }
