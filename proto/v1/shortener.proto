@@ -13,7 +13,7 @@ service ShortenerService {
 
   rpc getFullLink (GetFullLinkRequest) returns (GetFullLinkResponse) {
     option (google.api.http) = {
-      get: "/v1/url/link/{short_link}"
+      get: "/v1/url/link/{short_link_code}"
     };
   }
 }
